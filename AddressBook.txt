@@ -1,0 +1,189 @@
+mysql> describe addressbook.details;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(45) | NO   |     | NULL    |       |
+| LastName  | varchar(45) | NO   |     | NULL    |       |
+| Address   | varchar(45) | NO   |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbook        |
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> drop addressbook;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'addressbook' at line 1
+mysql> drop database addressbook;
+Query OK, 1 row affected (0.58 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+3 rows in set (0.12 sec)
+
+mysql> create database addressbook;
+Query OK, 1 row affected (0.40 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbook        |
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+4 rows in set (0.00 sec)
+
+mysql> create table addressbook.details(FirstName varchar(25) not null,LastName varchar(25) not null,Address varchar(50) not null,City varchar(25) not null,State varchar(25) not null,PhoneNum varchar(25) not null,ZipCode varchar(25) not null,Email varchar(50));
+Query OK, 0 rows affected (1.02 sec)
+
+mysql> describe addressbook.details;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(25) | NO   |     | NULL    |       |
+| LastName  | varchar(25) | NO   |     | NULL    |       |
+| Address   | varchar(50) | NO   |     | NULL    |       |
+| City      | varchar(25) | NO   |     | NULL    |       |
+| State     | varchar(25) | NO   |     | NULL    |       |
+| PhoneNum  | varchar(25) | NO   |     | NULL    |       |
+| ZipCode   | varchar(25) | NO   |     | NULL    |       |
+| Email     | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+8 rows in set (0.14 sec)
+
+mysql> use addressbook;
+Database changed
+mysql> insert into details values ( 'sagar', 'roy', 'pune', 'pune', 'maharastra', 6677, 67857575, 'sagar@gmail.com');
+Query OK, 1 row affected (0.23 sec)
+
+mysql> describe addressbook.details;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| FirstName | varchar(25) | NO   |     | NULL    |       |
+| LastName  | varchar(25) | NO   |     | NULL    |       |
+| Address   | varchar(50) | NO   |     | NULL    |       |
+| City      | varchar(25) | NO   |     | NULL    |       |
+| State     | varchar(25) | NO   |     | NULL    |       |
+| PhoneNum  | varchar(25) | NO   |     | NULL    |       |
+| ZipCode   | varchar(25) | NO   |     | NULL    |       |
+| Email     | varchar(50) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+8 rows in set (0.14 sec)
+
+mysql> select * from addressbook.details;
++-----------+----------+---------+------+------------+----------+----------+-----------------+
+| FirstName | LastName | Address | City | State      | PhoneNum | ZipCode  | Email           |
++-----------+----------+---------+------+------------+----------+----------+-----------------+
+| sagar     | roy      | pune    | pune | maharastra | 6677     | 67857575 | sagar@gmail.com |
++-----------+----------+---------+------+------------+----------+----------+-----------------+
+1 row in set (0.00 sec)
+
+
+mysql> insert into details values ( 'Kailash', 'baba', 'UP', 'ashoknagar', 'new delhi', 5869665, 9205267464, 'baba@gmail.com');
+Query OK, 1 row affected (0.24 sec)
+
+mysql> select * from addressbook.details;
++-----------+----------+---------+------------+------------+----------+------------+-----------------+
+| FirstName | LastName | Address | City       | State      | PhoneNum | ZipCode    | Email           |
++-----------+----------+---------+------------+------------+----------+------------+-----------------+
+| sagar     | roy      | pune    | pune       | maharastra | 6677     | 67857575   | sagar@gmail.com |
+| Kailash   | baba     | UP      | ashoknagar | new delhi  | 5869665  | 9205267464 | baba@gmail.com  |
++-----------+----------+---------+------------+------------+----------+------------+-----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into details values ( 'Khan', 'Ayyub', 'Pal', 'Khune', 'Banguluru', 4586, 585695878, 'mushafir@gmail.com');
+Query OK, 1 row affected (0.18 sec)
+
+mysql> insert into details values ( 'Nawab', 'chacha', 'Gomti', 'Lucknow', 'UP', 698745, 55825, 'phirot@gmail.com');
+Query OK, 1 row affected (0.15 sec)
+
+mysql> select * from addressbook.details;
++-----------+----------+---------+------------+------------+----------+------------+--------------------+
+| FirstName | LastName | Address | City       | State      | PhoneNum | ZipCode    | Email              |
++-----------+----------+---------+------------+------------+----------+------------+--------------------+
+| sagar     | roy      | pune    | pune       | maharastra | 6677     | 67857575   | sagar@gmail.com    |
+| Kailash   | baba     | UP      | ashoknagar | new delhi  | 5869665  | 9205267464 | baba@gmail.com     |
+| Khan      | Ayyub    | Pal     | Khune      | Banguluru  | 4586     | 585695878  | mushafir@gmail.com |
+| Nawab     | chacha   | Gomti   | Lucknow    | UP         | 698745   | 55825      | phirot@gmail.com   |
++-----------+----------+---------+------------+------------+----------+------------+--------------------+
+4 rows in set (0.00 sec)
+
+mysql> update details set LastName = 'joy',Address = 'mumbai',City = 'Okhla',State = 'PKB',PhoneNum = 420420,ZipCode = 789456,Email = 'gagan@gmail.com' where FirstName = 'sagar';
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from addressbook.details;
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+| FirstName | LastName | Address | City       | State     | PhoneNum | ZipCode    | Email              |
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+| sagar     | joy      | mumbai  | Okhla      | PKB       | 420420   | 789456     | gagan@gmail.com    |
+| Kailash   | baba     | UP      | ashoknagar | new delhi | 5869665  | 9205267464 | baba@gmail.com     |
+| Khan      | Ayyub    | Pal     | Khune      | Banguluru | 4586     | 585695878  | mushafir@gmail.com |
+| Nawab     | chacha   | Gomti   | Lucknow    | UP        | 698745   | 55825      | phirot@gmail.com   |
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+4 rows in set (0.11 sec)
+
+mysql> delete from details where FirstName = 'sagar';
+Query OK, 1 row affected (0.11 sec)
+
+mysql> select * from addressbook.details;
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+| FirstName | LastName | Address | City       | State     | PhoneNum | ZipCode    | Email              |
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+| Kailash   | baba     | UP      | ashoknagar | new delhi | 5869665  | 9205267464 | baba@gmail.com     |
+| Khan      | Ayyub    | Pal     | Khune      | Banguluru | 4586     | 585695878  | mushafir@gmail.com |
+| Nawab     | chacha   | Gomti   | Lucknow    | UP        | 698745   | 55825      | phirot@gmail.com   |
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+3 rows in set (0.10 sec)
+
+
+mysql> select * from details where City = 'ashoknagar';
++-----------+----------+---------+------------+-----------+----------+------------+----------------+
+| FirstName | LastName | Address | City       | State     | PhoneNum | ZipCode    | Email          |
++-----------+----------+---------+------------+-----------+----------+------------+----------------+
+| Kailash   | baba     | UP      | ashoknagar | new delhi | 5869665  | 9205267464 | baba@gmail.com |
++-----------+----------+---------+------------+-----------+----------+------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> select * from details where State = 'UP';
++-----------+----------+---------+---------+-------+----------+---------+------------------+
+| FirstName | LastName | Address | City    | State | PhoneNum | ZipCode | Email            |
++-----------+----------+---------+---------+-------+----------+---------+------------------+
+| Nawab     | chacha   | Gomti   | Lucknow | UP    | 698745   | 55825   | phirot@gmail.com |
++-----------+----------+---------+---------+-------+----------+---------+------------------+
+1 row in set (0.00 sec)
+
+mysql> select count(State) from details;
++--------------+
+| count(State) |
++--------------+
+|            3 |
++--------------+
+1 row in set (0.11 sec)
+
+
+mysql> select * from details order by FirstName asc;
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+| FirstName | LastName | Address | City       | State     | PhoneNum | ZipCode    | Email              |
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+| Kailash   | baba     | UP      | ashoknagar | new delhi | 5869665  | 9205267464 | baba@gmail.com     |
+| Khan      | Ayyub    | Pal     | Khune      | Banguluru | 4586     | 585695878  | mushafir@gmail.com |
+| Nawab     | chacha   | Gomti   | Lucknow    | UP        | 698745   | 55825      | phirot@gmail.com   |
++-----------+----------+---------+------------+-----------+----------+------------+--------------------+
+3 rows in set (0.01 sec)
