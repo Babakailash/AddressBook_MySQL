@@ -572,3 +572,48 @@ mysql> select*from details;
 |  4 | Mountain  | King     | Naipura   | Faizabad  | UttarPradesh | 852963741   | 420001  | ravindra@gmail.com | Family |
 +----+-----------+----------+-----------+-----------+--------------+-------------+---------+--------------------+--------+
 4 rows in set (0.09 sec)
+
+//UC-6//+
+
+mysql> select FirstName from details where City ='Ghaziabad' and State = 'UttarPradesh';
++-----------+
+| FirstName |
++-----------+
+| Aarush    |
++-----------+
+1 row in set (0.00 sec)
+
+//UC-7//+
+
+mysql> select count(FirstName) from details where State = 'UttarPradesh';
++------------------+
+| count(FirstName) |
++------------------+
+|                3 |
++------------------+
+1 row in set (0.00 sec)
+
+//UC-8//+
+
+mysql> select FirstName from details order by City asc;
++-----------+
+| FirstName |
++-----------+
+| Mountain  |
+| Gaurav    |
+| Mountain  |
+| Aarush    |
++-----------+
+4 rows in set (0.00 sec)
+
+//UC-10//+
+
+mysql> select PhoneNumber from details where Type = 'Family';
++-------------+
+| PhoneNumber |
++-------------+
+| 9205267464  |
+| 9205267464  |
+| 852963741   |
++-------------+
+3 rows in set (0.00 sec)
