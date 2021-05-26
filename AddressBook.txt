@@ -187,3 +187,388 @@ mysql> select * from details order by FirstName asc;
 | Nawab     | chacha   | Gomti   | Lucknow    | UP        | 698745   | 55825      | phirot@gmail.com   |
 +-----------+----------+---------+------------+-----------+----------+------------+--------------------+
 3 rows in set (0.01 sec)
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.21 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+//UC-1//
+
+mysql> create database addressbook2;
+Query OK, 1 row affected (0.24 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| addressbook        |
+| addressbook1       |
+| addressbook2       |
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+6 rows in set (0.11 sec)
+
+mysql> use addressbook2;
+Database changed
+
+//UC-2//
+
+mysql> create table details(id int unsigned not null ,FirstName varchar(20) not null);
+Query OK, 0 rows affected (1.20 sec)
+
+mysql> select * from details;
+Empty set (0.40 sec)
+
+mysql> describe addressbook2.details;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| id        | int unsigned | NO   |     | NULL    |       |
+| FirstName | varchar(20)  | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table details add(LastName varchar(20));
+Query OK, 0 rows affected (0.59 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe addressbook2.details;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| id        | int unsigned | NO   |     | NULL    |       |
+| FirstName | varchar(20)  | NO   |     | NULL    |       |
+| LastName  | varchar(20)  | YES  |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+3 rows in set (0.58 sec)
+
+mysql> alter table details add(Address varchar(50) not null);
+Query OK, 0 rows affected (0.85 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> describe addressbook2.details;
++-----------+--------------+------+-----+---------+-------+
+| Field     | Type         | Null | Key | Default | Extra |
++-----------+--------------+------+-----+---------+-------+
+| id        | int unsigned | NO   |     | NULL    |       |
+| FirstName | varchar(20)  | NO   |     | NULL    |       |
+| LastName  | varchar(20)  | YES  |     | NULL    |       |
+| Address   | varchar(50)  | NO   |     | NULL    |       |
++-----------+--------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> alter table details add (City varchar(20) not null,State varchar(20) not null,PhoneNumber varchar(15) not null,ZipCode varchar(20) not null,Email varchar(20) not null);
+Query OK, 0 rows affected (0.88 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from deatils;
+ERROR 1146 (42S02): Table 'addressbook2.deatils' doesn't exist
+mysql> describe addressbook2.details;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| id          | int unsigned | NO   |     | NULL    |       |
+| FirstName   | varchar(20)  | NO   |     | NULL    |       |
+| LastName    | varchar(20)  | YES  |     | NULL    |       |
+| Address     | varchar(50)  | NO   |     | NULL    |       |
+| City        | varchar(20)  | NO   |     | NULL    |       |
+| State       | varchar(20)  | NO   |     | NULL    |       |
+| PhoneNumber | varchar(15)  | NO   |     | NULL    |       |
+| ZipCode     | varchar(20)  | NO   |     | NULL    |       |
+| Email       | varchar(20)  | NO   |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+9 rows in set (0.12 sec)
+
+//UC-3//
+
+mysql> insert into details(id,FirstName,LastName,Address,City,State,PhoneNumber,ZipCode,Email)values(1,'Kailash','Vish','NewDelhi','EastDelhi','New Delhi',9205267464,110096,'kailash@gmail.com');
+Query OK, 1 row affected (0.21 sec)
+
+mysql> select*from details;
++----+-----------+----------+----------+-----------+-----------+-------------+---------+-------------------+
+| id | FirstName | LastName | Address  | City      | State     | PhoneNumber | ZipCode | Email             |
++----+-----------+----------+----------+-----------+-----------+-------------+---------+-------------------+
+|  1 | Kailash   | Vish     | NewDelhi | EastDelhi | New Delhi | 9205267464  | 110096  | kailash@gmail.com |
++----+-----------+----------+----------+-----------+-----------+-------------+---------+-------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into details(id,FirstName,LastName,Address,City,State,PhoneNumber,ZipCode,Email)values(2,'Mountain','King','Delhi NCR','Ghaziabad','UttarPradesh',9205267464,110096,'moun10@gmail.com');
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into details(id,FirstName,LastName,Address,City,State,PhoneNumber,ZipCode,Email)values(3,'Swastik','Sharma','Ayodhya','Ayodhya','UttarPradesh',9794445197,42001,'baba@gmail.com');
+Query OK, 1 row affected (0.23 sec)
+
+mysql> insert into details(id,FirstName,LastName,Address,City,State,PhoneNumber,ZipCode,Email)values(4,'HC','Verma','Kanpur','MaalRoad','UttarPradesh',878548665,42001,'HCk@gmail.com');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select*from details;
++----+-----------+----------+-----------+-----------+--------------+-------------+---------+-------------------+
+| id | FirstName | LastName | Address   | City      | State        | PhoneNumber | ZipCode | Email             |
++----+-----------+----------+-----------+-----------+--------------+-------------+---------+-------------------+
+|  1 | Kailash   | Vish     | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com |
+|  2 | Mountain  | King     | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  |
+|  3 | Swastik   | Sharma   | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    |
+|  4 | HC        | Verma    | Kanpur    | MaalRoad  | UttarPradesh | 878548665   | 42001   | HCk@gmail.com     |
++----+-----------+----------+-----------+-----------+--------------+-------------+---------+-------------------+
+4 rows in set (0.00 sec)
+
+mysql> update details set LastName = 'Chaurasiya'where FirstName ='Swastik';
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from details;
++----+---------------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+| id | FirstName     | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             |
++----+---------------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+|  1 | Kailash       | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com |
+|  2 | Mountain      | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  |
+|  3 | Swastik       | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    |
+|  4 | Hanuman Chand | Verma      | Kanpur    | MaalRoad  | UttarPradesh | 878548665   | 42001   | HCk@gmail.com     |
++----+---------------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+4 rows in set (0.00 sec)
+
+//UC-4//
+
+mysql> delete from details where FirstName = 'Hanuman Chand';
+Query OK, 1 row affected (0.17 sec)
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+|  1 | Kailash   | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com |
+|  2 | Mountain  | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  |
+|  3 | Swastik   | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+3 rows in set (0.10 sec)
+
+//UC-5//
+
+mysql> select FirstName from details where City = 'Ayodhya';
++-----------+
+| FirstName |
++-----------+
+| Swastik   |
++-----------+
+1 row in set (0.00 sec)
+
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+|  1 | Kailash   | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com |
+|  2 | Mountain  | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  |
+|  3 | Swastik   | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+
+3 rows in set (0.00 sec)
+
+//UC-6//
+
+mysql> alter table details add Type varchar(20);
+Query OK, 0 rows affected (1.57 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             | Type |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+------+
+|  1 | Kailash   | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com | NULL |
+|  2 | Mountain  | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  | NULL |
+|  3 | Swastik   | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    | NULL |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+------+
+3 rows in set (0.00 sec)
+
+//UC-7//
+
+mysql> select FirstName from details order by City asc;
++-----------+
+| FirstName |
++-----------+
+| Swastik   |
+| Kailash   |
+| Mountain  |
++-----------+
+3 rows in set (0.00 sec)
+
+mysql> select City from details order by FirstName asc;
++-----------+
+| City      |
++-----------+
+| EastDelhi |
+| Ghaziabad |
+| Ayodhya   |
++-----------+
+3 rows in set (0.00 sec)
+
+mysql> select City from details order by FirstName desc;
++-----------+
+| City      |
++-----------+
+| Ayodhya   |
+| Ghaziabad |
+| EastDelhi |
++-----------+
+3 rows in set (0.00 sec)
+
+mysql> select FirstName from details order by City desc;
++-----------+
+| FirstName |
++-----------+
+| Mountain  |
+| Kailash   |
+| Swastik   |
++-----------+
+3 rows in set (0.00 sec)
+
+//UC-8//
+
+mysql> update details set Type = 'Family' where id =1;
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             | Type   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+|  1 | Kailash   | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com | Family |
+|  2 | Mountain  | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  | NULL   |
+|  3 | Swastik   | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    | NULL   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+3 rows in set (0.09 sec)
+
+mysql> update details set Type = 'Family' where id = 2;
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update details set Type = 'Friend' where FirstName = 'Swastik';
+Query OK, 1 row affected (0.17 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from Details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             | Type   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+|  1 | Kailash   | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com | Family |
+|  2 | Mountain  | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  | Family |
+|  3 | Swastik   | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    | Friend |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+3 rows in set (0.00 sec)
+
+//UC-9//
+
+mysql> select PhoneNumber where Type = 'Family';
+ERROR 1054 (42S22): Unknown column 'PhoneNumber' in 'field list'
+mysql> select PhoneNumber from details where Type = 'Family';
++-------------+
+| PhoneNumber |
++-------------+
+| 9205267464  |
+| 9205267464  |
++-------------+
+2 rows in set (0.00 sec)
+
+//UC-10//
+
+mysql> update details set FirstName = 'Mountain' where (Type = 'Family' or Type = 'Friend');
+Query OK, 2 rows affected (0.17 sec)
+Rows matched: 3  Changed: 2  Warnings: 0
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             | Type   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+|  1 | Mountain  | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com | Family |
+|  2 | Mountain  | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  | Family |
+|  3 | Mountain  | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    | Friend |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+3 rows in set (0.11 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             | Type   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+|  1 | Mountain  | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com | Family |
+|  2 | Mountain  | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  | Family |
+|  3 | Mountain  | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    | Friend |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+3 rows in set (0.00 sec)
+
+//UC-11//
+
+mysql> update details set FirstName ='Gaurav' where id =1;
+Query OK, 1 row affected (0.28 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update details set FirstName ='Aarush' where id =2;
+Query OK, 1 row affected (0.12 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             | Type   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+|  1 | Gaurav    | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com | Family |
+|  2 | Aarush    | King       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  | Family |
+|  3 | Mountain  | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    | Friend |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update details set LastName = 'Vish' where FirstName = 'Aarush';
+Query OK, 1 row affected (0.16 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email             | Type   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+|  1 | Gaurav    | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | kailash@gmail.com | Family |
+|  2 | Aarush    | Vish       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com  | Family |
+|  3 | Mountain  | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com    | Friend |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+-------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update details set Email ='Gaurav@gmail.com' where id =1;
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from details;
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+------------------+--------+
+| id | FirstName | LastName   | Address   | City      | State        | PhoneNumber | ZipCode | Email            | Type   |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+------------------+--------+
+|  1 | Gaurav    | Vish       | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | Gaurav@gmail.com | Family |
+|  2 | Aarush    | Vish       | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com | Family |
+|  3 | Mountain  | Chaurasiya | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com   | Friend |
++----+-----------+------------+-----------+-----------+--------------+-------------+---------+------------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> update details set LastName = 'King' where FirstName = 'Mountain';
+Query OK, 1 row affected (0.19 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> insert into details(id,FirstName,LastName,Address,City,State,PhoneNumber,ZipCode,Email,Type)values(4,'Mountain','King','Naipura','Faizabad','UttarPradesh',852963741,420001,'ravindra@gmail.com','Family');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select*from details;
++----+-----------+----------+-----------+-----------+--------------+-------------+---------+--------------------+--------+
+| id | FirstName | LastName | Address   | City      | State        | PhoneNumber | ZipCode | Email              | Type   |
++----+-----------+----------+-----------+-----------+--------------+-------------+---------+--------------------+--------+
+|  1 | Gaurav    | Vish     | NewDelhi  | EastDelhi | New Delhi    | 9205267464  | 110096  | Gaurav@gmail.com   | Family |
+|  2 | Aarush    | Vish     | Delhi NCR | Ghaziabad | UttarPradesh | 9205267464  | 110096  | moun10@gmail.com   | Family |
+|  3 | Mountain  | King     | Ayodhya   | Ayodhya   | UttarPradesh | 9794445197  | 42001   | baba@gmail.com     | Friend |
+|  4 | Mountain  | King     | Naipura   | Faizabad  | UttarPradesh | 852963741   | 420001  | ravindra@gmail.com | Family |
++----+-----------+----------+-----------+-----------+--------------+-------------+---------+--------------------+--------+
+4 rows in set (0.09 sec)
